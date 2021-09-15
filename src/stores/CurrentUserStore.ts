@@ -125,6 +125,10 @@ class CurrentUserStore {
     }
   }
 
+  unsetAuthToken = async () => {
+    await AsyncStorage.setItem("authToken", "");
+  };
+
   retrieveToken = async () => {
     try {
       const value = await AsyncStorage.getItem("authToken");

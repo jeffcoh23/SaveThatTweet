@@ -10,6 +10,9 @@ import TweetDetailsScreen from "../screens/TweetDetailsScreen";
 import * as Linking from "expo-linking";
 import { navigationRef } from "./RootNavigation";
 import { Button, Icon } from "@ui-kitten/components";
+import { currentUserStore } from "../stores/CurrentUserStore";
+import LoginScreen from "../screens/LoginScreen";
+import CentralSpinner from "../components/CentralSpinner";
 
 export type RootStackParamList = {
   TweetDetails: { savedTweetId: string };
@@ -46,45 +49,58 @@ const HomeStackScreen = observer(() => {
   );
 });
 
+const AuthenticatedApp = observer(() => (
+  <NavigationContainer ref={navigationRef} linking={linking}>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: { backgroundColor: "#222B45" },
+      })}
+    >
+      <Tab.Screen
+        options={({ navigation }) => ({
+          title: "Home",
+          tabBarIcon: () => (
+            <Icon height={25} fill="white" width={25} name="home" />
+          ),
+        })}
+        name="Home"
+        component={HomeStackScreen}
+      />
+      <Tab.Screen
+        options={({ navigation }) => ({
+          title: "Account",
+          tabBarIcon: () => (
+            <Icon height={25} fill="white" width={25} name="person-outline" />
+          ),
+        })}
+        name="Settings"
+        component={AccountScreen}
+      />
+    </Tab.Navigator>
+  </NavigationContainer>
+));
+
 const NavigationApp = () => {
-  return (
-    <SafeAreaProvider style={{ flex: 1 }}>
-      <NavigationContainer ref={navigationRef} linking={linking}>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            headerShown: false,
-            tabBarStyle: { backgroundColor: "#222B45" },
-          })}
-        >
-          <Tab.Screen
-            options={({ navigation }) => ({
-              title: "Home",
-              tabBarIcon: () => (
-                <Icon height={25} fill="white" width={25} name="home" />
-              ),
-            })}
-            name="Home"
-            component={HomeStackScreen}
-          />
-          <Tab.Screen
-            options={({ navigation }) => ({
-              title: "Account",
-              tabBarIcon: () => (
-                <Icon
-                  height={25}
-                  fill="white"
-                  width={25}
-                  name="person-outline"
-                />
-              ),
-            })}
-            name="Settings"
-            component={AccountScreen}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
-  );
+  switch (currentUserStore.state.kind) {
+    case "anonymous":
+      return (
+        <SafeAreaProvider style={{ flex: 1 }}>
+          <LoginScreen />
+        </SafeAreaProvider>
+      );
+
+    case "has-token":
+    case "identifying":
+    case "initializing":
+      return <CentralSpinner />;
+    case "authenticated":
+      return (
+        <SafeAreaProvider style={{ flex: 1 }}>
+          <AuthenticatedApp />
+        </SafeAreaProvider>
+      );
+  }
 };
 
 export default observer(NavigationApp);

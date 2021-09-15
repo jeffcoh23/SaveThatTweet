@@ -193,6 +193,17 @@ class TweetStore {
         return this.state.selectedTagsIndex;
     }
   }
+
+  @computed get currentSelectedTags(): string[] {
+    switch(this.state.kind){
+      case 'loading':
+      case 'waiting':
+        return []
+      case 'searching':
+      case 'ready':
+        return this.state.tags.filter((_, index) => Array.isArray(this.selectedTagsIndexPath) ? this.selectedTagsIndexPath.map(i => i.row).includes(index) : this.selectedTagsIndexPath.row === index)
+    }
+  }
   // tagsIndex(indexPath: IndexPath[]): IndexPath[] {
   //   switch (this.state.kind) {
   //     case "loading":

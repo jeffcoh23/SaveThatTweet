@@ -17,6 +17,7 @@ class AccountScreen extends React.Component {
   }
   logout = () => {
     currentUserStore.anonymous();
+    currentUserStore.unsetAuthToken();
   };
 
   componentDidMount() {}

@@ -70,7 +70,7 @@ class HomeScreenContent extends React.Component<Props> {
       if (link) {
         this.fetchTweets(`${link}?search_text=${searchText}`);
       }
-    }, 500);
+    }, 1000);
 
     // FETCH API
     //this.tweetStore.ready(data);
@@ -80,7 +80,7 @@ class HomeScreenContent extends React.Component<Props> {
     this.tweetStore.searching(undefined, tags, index);
     const link = currentUserStore.savedTweetsLink;
     if (link) {
-      this.fetchTweets(`${link}?tags=${tags}`);
+      this.fetchTweets(`${link}?tags=${(encodeURIComponent(this.tweetStore.currentSelectedTags.toString()))}`);
     }
     // FETCH API
     // this.tweetStore.ready(data);
