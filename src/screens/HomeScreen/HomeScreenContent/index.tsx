@@ -10,7 +10,7 @@ import {
 } from "@ui-kitten/components";
 import { observer } from "mobx-react";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import {
   SafeAreaLayout,
   SaveAreaInset,
@@ -80,7 +80,11 @@ class HomeScreenContent extends React.Component<Props> {
     this.tweetStore.searching(undefined, tags, index);
     const link = currentUserStore.savedTweetsLink;
     if (link) {
-      this.fetchTweets(`${link}?tags=${(encodeURIComponent(this.tweetStore.currentSelectedTags.toString()))}`);
+      this.fetchTweets(
+        `${link}?tags=${encodeURIComponent(
+          this.tweetStore.currentSelectedTags.toString()
+        )}`
+      );
     }
     // FETCH API
     // this.tweetStore.ready(data);
@@ -131,16 +135,15 @@ class HomeScreenContent extends React.Component<Props> {
                 })}
               </Select>
             </Layout>
-            <Layout style={{ flex: 1 }}>
-              {this.tweetStore.state.kind === "searching" ? (
-                <CentralSpinner />
-              ) : (
-                <TweetsList
-                  tweetStore={this.tweetStore}
-                  tweetsResource={this.tweetStore.state.tweets}
-                />
-              )}
-            </Layout>
+            {this.tweetStore.state.kind === "searching" ? (
+              <CentralSpinner />
+            ) : (
+              <TweetsList
+                hideTweetDetails={false}
+                tweetStore={this.tweetStore}
+                tweetsResource={this.tweetStore.state.tweets}
+              />
+            )}
           </SafeAreaLayout>
         );
     }

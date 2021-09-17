@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as AuthSession from "expo-auth-session";
-import { ImageBackground, StyleSheet } from "react-native";
+import { Image, ImageBackground, StyleSheet } from "react-native";
 import { observer } from "mobx-react";
 import serverApi from "../../serverApi";
 import { currentUserStore } from "../../stores/CurrentUserStore";
@@ -12,6 +12,7 @@ import {
 } from "../../../utils/components/SafeAreaLayout";
 import { Layout, Text, Button } from "@ui-kitten/components";
 import { TwitterIcon } from "../../components/InternalIcons";
+import HowItWorksButton from "../../components/HowItWorksButton";
 const redirect = AuthSession.makeRedirectUri();
 
 function LoginScreen() {
@@ -56,32 +57,39 @@ function LoginScreen() {
 
   return (
     <SafeAreaLayout style={styles.container}>
-      <ImageBackground
+      <Image
         style={styles.backgroundImage}
-        imageStyle={styles.backgroundImageStyle}
-        source={require("../../../assets/bedroomBackground.jpg")}
+        // imageStyle={styles.backgroundImageStyle}
+        source={require("../../../assets/save-that-tweet-logo.png")}
       />
       <Layout style={styles.layout}>
-        <Text style={styles.headerText} category="h1">
-          Welcome!
-        </Text>
         <Text style={styles.text} category="s1">
-          Please use the button below to sign in or create an account.
+          Welcome to Save That Tweet! Use the button below to log in to Twitter
+          or to create an account with Save That Tweet.
         </Text>
       </Layout>
-      <Button
-        onPress={onLogin}
-        accessoryRight={TwitterIcon}
-        style={styles.loginButton}
-      >
-        Sign in / Create Account
-      </Button>
+      <Layout style={styles.bottomButtonSection}>
+        <Button
+          onPress={onLogin}
+          accessoryRight={TwitterIcon}
+          style={styles.loginButton}
+        >
+          Sign in / Create Account
+        </Button>
+      </Layout>
     </SafeAreaLayout>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "rgb(141, 192, 231)",
+    alignItems: "center",
+    // justifyContent: "center",
+  },
+  bottomButtonSection: {
+    backgroundColor: "transparent",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -91,16 +99,18 @@ const styles = StyleSheet.create({
   },
   backgroundImageStyle: { opacity: 0.5 },
   backgroundImage: {
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    backgroundColor: "rgba(0,0,0,0.9)",
+    height: 350,
+    width: 300,
+    // top: 0,
+    // bottom: 0,
+    // left: 0,
+    // right: 0,
+    // width: "100%",
+    // height: "100%",
+    // position: "absolute",
+    // backgroundColor: "rgba(141, 92, 231, 0.9)",
   },
-  text: { marginBottom: 30, textAlign: "left" },
+  text: { paddingHorizontal: 40, marginBottom: 30, textAlign: "left" },
   headerText: { marginBottom: 30, textDecorationLine: "underline" },
   loginButton: {
     backgroundColor: "rgb(55, 161, 242)",

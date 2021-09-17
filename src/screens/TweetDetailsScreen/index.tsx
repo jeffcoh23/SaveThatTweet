@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NavigationState } from "@react-navigation/routers";
-import { Layout } from "@ui-kitten/components";
+import { Button, Layout } from "@ui-kitten/components";
 import { observer } from "mobx-react";
 import * as React from "react";
 import {
@@ -14,6 +14,8 @@ import { currentUserStore } from "../../stores/CurrentUserStore";
 import TweetStore from "../../stores/TweetStore";
 import TweetsList from "../HomeScreen/TweetsList";
 import getEnvVars from "../../../environment";
+import { BackIcon } from "../../components/InternalIcons";
+import * as RootNavigation from "../../navigation/RootNavigation";
 
 // import { NavigationScreenProp, NavigationState } from "react-navigation";
 const { apiUrl } = getEnvVars();
@@ -44,6 +46,12 @@ class TweetDetailsScreen extends React.Component<Props> {
     }
   }
 
+  onPressBack = () => {
+    RootNavigation.navigate("Home", {
+      screen: "Tweets",
+    });
+  };
+
   render() {
     switch (this.tweetStore.state.kind) {
       case "loading":
@@ -53,8 +61,15 @@ class TweetDetailsScreen extends React.Component<Props> {
       case "ready":
         return (
           <SafeAreaLayout insets={[SaveAreaInset.TOP]} style={{ flex: 1 }}>
+            <Button
+              style={{ marginRight: 40, alignSelf: "flex-start" }}
+              onPress={this.onPressBack}
+              appearance="ghost"
+              accessoryRight={BackIcon}
+            />
             <Layout style={{ flex: 1 }}>
               <TweetsList
+                hideTweetDetails={true}
                 tweetStore={this.tweetStore}
                 tweetsResource={this.tweetStore.state.tweets}
               />

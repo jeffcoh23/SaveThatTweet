@@ -9,9 +9,14 @@ import * as RootNavigation from "../../navigation/RootNavigation";
 interface Props {
   tweetResource: TweetResource;
   tweetStore: TweetStore;
+  hideTweetDetails: boolean;
 }
 
-const Header: React.FC<Props> = ({ tweetStore, tweetResource }) => {
+const Header: React.FC<Props> = ({
+  tweetStore,
+  tweetResource,
+  hideTweetDetails,
+}) => {
   const pressViewThread = () => {
     RootNavigation.navigate("Home", {
       screen: "TweetDetails",
@@ -33,7 +38,7 @@ const Header: React.FC<Props> = ({ tweetStore, tweetResource }) => {
         </Layout>
       </Layout>
       <Layout>
-        {tweetResource.payload.isThread ? (
+        {tweetResource.payload.isThread && !hideTweetDetails ? (
           <Button onPress={pressViewThread}>View Thread</Button>
         ) : (
           <></>

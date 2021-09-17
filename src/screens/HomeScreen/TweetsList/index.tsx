@@ -10,33 +10,37 @@ import EmptyTweetsList from "./EmptyTweetsList";
 interface Props {
   tweetsResource: TweetsResource;
   tweetStore: TweetStore;
+  hideTweetDetails: boolean;
 }
 
-const TweetsList: React.FC<Props> = ({ tweetStore, tweetsResource }) => {
+const TweetsList: React.FC<Props> = ({
+  tweetStore,
+  tweetsResource,
+  hideTweetDetails,
+}) => {
   const renderItem = ({
     item,
     index,
   }: {
     item: TweetResource;
     index: number;
-  }) => <TweetCard tweetStore={tweetStore} tweetResource={item} />;
+  }) => (
+    <TweetCard
+      hideTweetDetails={hideTweetDetails}
+      key={item.payload.id}
+      tweetStore={tweetStore}
+      tweetResource={item}
+    />
+  );
 
   return (
     <List
       ListEmptyComponent={EmptyTweetsList}
-      style={styles.container}
-      contentContainerStyle={styles.container}
       data={tweetsResource.payload.slice()}
       ItemSeparatorComponent={Divider}
       renderItem={renderItem}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default observer(TweetsList);

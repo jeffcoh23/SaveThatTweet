@@ -8,7 +8,8 @@ export interface TweetPayload {
   twitterUserUrl: string;
   profileImageUrl: string;
   savedTags: string[];
-  isThread: boolean
+  isThread: boolean;
+  media: { type: "video" | "photo"; link: string }[];
 }
 
 export interface TweetResource {
