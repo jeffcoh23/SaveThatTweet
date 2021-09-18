@@ -16,6 +16,10 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "associatedDomains": [
+        "applinks:savethattweet.com",
+        "applinks:www.savethattweet.com"
+      ],
       "supportsTablet": true,
       "bundleIdentifier": "com.jeffcoh23.SaveThatTweet"
     },
