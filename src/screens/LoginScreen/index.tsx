@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as AuthSession from "expo-auth-session";
-import { Image, ImageBackground, StyleSheet } from "react-native";
+import { Image, ImageBackground, Linking, StyleSheet } from "react-native";
 import { observer } from "mobx-react";
 import serverApi from "../../serverApi";
 import { currentUserStore } from "../../stores/CurrentUserStore";
@@ -16,6 +16,11 @@ import HowItWorksButton from "../../components/HowItWorksButton";
 const redirect = AuthSession.makeRedirectUri();
 
 function LoginScreen() {
+  const howItWorksLink = () => {
+    Linking.openURL(
+      "https://jeffcoh237.wixsite.com/save-that-tweet/how-it-works"
+    );
+  };
   const onLogin = async () => {
     try {
       serverApi
@@ -76,6 +81,9 @@ function LoginScreen() {
         >
           Sign in / Create Account
         </Button>
+        <Button appearance="outline" status="control" onPress={onLogin}>
+          Support Site
+        </Button>
       </Layout>
     </SafeAreaLayout>
   );
@@ -113,6 +121,7 @@ const styles = StyleSheet.create({
   text: { paddingHorizontal: 40, marginBottom: 30, textAlign: "left" },
   headerText: { marginBottom: 30, textDecorationLine: "underline" },
   loginButton: {
+    marginVertical: 10,
     backgroundColor: "rgb(55, 161, 242)",
   },
 });

@@ -23,15 +23,13 @@ class AccountScreen extends React.Component {
   componentDidMount() {}
 
   howItWorksLink = () => {
-    const link = currentUserStore.links.find((l) => l.rel === "how-it-works");
-    Linking.openURL(link?.href || "https://slatebets.wixsite.com/mysite");
+    Linking.openURL(
+      "https://jeffcoh237.wixsite.com/save-that-tweet/how-it-works"
+    );
   };
 
   handleSupportLink = () => {
-    const supportLink = currentUserStore.links.find((l) => l.rel === "support");
-    Linking.openURL(
-      supportLink?.href || "https://slatebets.wixsite.com/mysite"
-    );
+    Linking.openURL("https://jeffcoh237.wixsite.com/save-that-tweet");
   };
 
   render() {

@@ -36,11 +36,16 @@ const TweetsList: React.FC<Props> = ({
   return (
     <List
       ListEmptyComponent={EmptyTweetsList}
+      contentContainerStyle={styles.listContainer}
       data={tweetsResource.payload.slice()}
       ItemSeparatorComponent={Divider}
       renderItem={renderItem}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  listContainer: { flexGrow: 1 },
+});
 
 export default observer(TweetsList);

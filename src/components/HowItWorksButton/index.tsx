@@ -12,8 +12,9 @@ const searchIcon = () => (
 
 const HowItWorksButton: React.FC<Props> = () => {
   const howItWorksLink = () => {
-    const link = currentUserStore.links.find((l) => l.rel === "how-it-works");
-    Linking.openURL(link?.href || "");
+    Linking.openURL(
+      "https://jeffcoh237.wixsite.com/save-that-tweet/how-it-works"
+    );
   };
   return (
     <Button
