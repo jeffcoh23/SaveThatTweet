@@ -3,11 +3,11 @@
     "name": "SaveThatTweet",
     "slug": "SaveThatTweet",
     "scheme": "savethattweet",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/save-that-tweet-logo.png",
+    "icon": "./assets/save-that-tweet-higher-quality.png",
     "splash": {
-      "image": "./assets/save-that-tweet-logo.png",
+      "image": "./assets/save-that-tweet-higher-quality.png",
       "resizeMode": "contain",
       "backgroundColor": "#81bffd"
     },

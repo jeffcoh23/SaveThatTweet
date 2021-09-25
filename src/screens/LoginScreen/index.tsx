@@ -65,7 +65,7 @@ function LoginScreen() {
       <Image
         style={styles.backgroundImage}
         // imageStyle={styles.backgroundImageStyle}
-        source={require("../../../assets/save-that-tweet-logo.png")}
+        source={require("../../../assets/save-that-tweet-higher-quality.png")}
       />
       <Layout style={styles.layout}>
         <Text style={styles.text} category="s1">
@@ -81,7 +81,7 @@ function LoginScreen() {
         >
           Sign in / Create Account
         </Button>
-        <Button appearance="outline" status="control" onPress={onLogin}>
+        <Button appearance="outline" status="control" onPress={howItWorksLink}>
           Support Site
         </Button>
       </Layout>
@@ -107,8 +107,10 @@ const styles = StyleSheet.create({
   },
   backgroundImageStyle: { opacity: 0.5 },
   backgroundImage: {
-    height: 350,
-    width: 300,
+    height: 400,
+    width: 350,
+    resizeMode: "contain",
+
     // top: 0,
     // bottom: 0,
     // left: 0,
