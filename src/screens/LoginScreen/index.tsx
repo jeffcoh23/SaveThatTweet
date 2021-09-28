@@ -67,12 +67,7 @@ function LoginScreen() {
         // imageStyle={styles.backgroundImageStyle}
         source={require("../../../assets/save-that-tweet-higher-quality.png")}
       />
-      <Layout style={styles.layout}>
-        <Text style={styles.text} category="s1">
-          Welcome to Save That Tweet! Use the button below to log in to Twitter
-          or to create an account with Save That Tweet.
-        </Text>
-      </Layout>
+
       <Layout style={styles.bottomButtonSection}>
         <Button
           onPress={onLogin}
