@@ -1,4 +1,3 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   Icon,
   IndexPath,
@@ -6,18 +5,16 @@ import {
   Layout,
   Select,
   SelectItem,
-  Spinner,
 } from "@ui-kitten/components";
 import { observer } from "mobx-react";
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   SafeAreaLayout,
   SaveAreaInset,
 } from "../../../../utils/components/SafeAreaLayout";
 import CentralSpinner from "../../../components/CentralSpinner";
 import { TweetsResource } from "../../../interfaces";
-import { RootStackParamList } from "../../../navigation";
 import serverApi from "../../../serverApi";
 import { currentUserStore } from "../../../stores/CurrentUserStore";
 import TweetStore from "../../../stores/TweetStore";
@@ -89,6 +86,13 @@ class HomeScreenContent extends React.Component<Props> {
     // FETCH API
     // this.tweetStore.ready(data);
   };
+
+  // paths = reaction(
+  //   () => this.tweetStore.tags,
+  //   (isHungry) => {
+  //     console.log(`yooo ${this.tweetStore.selectedTagsIndexPath}`);
+  //   }
+  // );
 
   selectedTagsDisplayValue = () => {
     const indexPath = Array.isArray(this.tweetStore.selectedTagsIndexPath)

@@ -137,7 +137,7 @@ class TweetStore {
           (resource) => resource.payload.id === tweetResource.payload.id
         );
         if (tweetResourceToReplace !== -1)
-         this.state.tweets.payload.splice(
+          this.state.tweets.payload.splice(
             tweetResourceToReplace,
             1,
             tweetResource
@@ -190,30 +190,35 @@ class TweetStore {
         return [];
       case "ready":
       case "searching":
-        return this.state.selectedTagsIndex;
+        const selectedTagsIndex = Array.isArray(this.state.selectedTagsIndex)
+          ? this.state.selectedTagsIndex
+          : [this.state.selectedTagsIndex];
+        const currentlySelectedTags = this.state.tags.filter((_, index) =>
+          selectedTagsIndex.map((i) => i.row).includes(index)
+        );
+        const indices = this.tags
+          .map((tag, index) =>
+            currentlySelectedTags.includes(tag) ? index : undefined
+          )
+          .filter((item) => item !== undefined);
+        return indices.map((i) => new IndexPath(i));
     }
   }
 
   @computed get currentSelectedTags(): string[] {
-    switch(this.state.kind){
-      case 'loading':
-      case 'waiting':
-        return []
-      case 'searching':
-      case 'ready':
-        return this.state.tags.filter((_, index) => Array.isArray(this.selectedTagsIndexPath) ? this.selectedTagsIndexPath.map(i => i.row).includes(index) : this.selectedTagsIndexPath.row === index)
+    switch (this.state.kind) {
+      case "loading":
+      case "waiting":
+        return [];
+      case "searching":
+      case "ready":
+        return this.state.tags.filter((_, index) =>
+          Array.isArray(this.selectedTagsIndexPath)
+            ? this.selectedTagsIndexPath.map((i) => i.row).includes(index)
+            : this.selectedTagsIndexPath.row === index
+        );
     }
   }
-  // tagsIndex(indexPath: IndexPath[]): IndexPath[] {
-  //   switch (this.state.kind) {
-  //     case "loading":
-  //     case "waiting":
-  //       return [];
-  //     case "ready":
-  //     case "searching":
-  //       return
-  //   }
-  // }
 }
 
 export default TweetStore;
