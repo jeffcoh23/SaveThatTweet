@@ -1,11 +1,12 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { RefreshControl, StyleSheet } from "react-native";
 import { Divider, List } from "@ui-kitten/components";
 import { observer } from "mobx-react";
 import TweetCard from "../../../components/TweetCard";
 import { TweetResource, TweetsResource } from "../../../interfaces";
 import TweetStore from "../../../stores/TweetStore";
 import EmptyTweetsList from "./EmptyTweetsList";
+import serverApi from "../../../serverApi";
 
 interface Props {
   tweetsResource: TweetsResource;
@@ -33,8 +34,23 @@ const TweetsList: React.FC<Props> = ({
     />
   );
 
+  const refreshSavedTweets = () => {
+    const link = tweetsResource.links.find((l) => l.rel === "self");
+    if (link) {
+      tweetStore.refreshing();
+      serverApi.get(link.href).then(tweetStore.ready);
+    }
+  };
+
   return (
     <List
+      refreshControl={
+        <RefreshControl
+          tintColor="white"
+          refreshing={tweetStore.state.kind === "refreshing"}
+          onRefresh={refreshSavedTweets}
+        />
+      }
       ListEmptyComponent={EmptyTweetsList}
       contentContainerStyle={styles.listContainer}
       data={tweetsResource.payload.slice()}

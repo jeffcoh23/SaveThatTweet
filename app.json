@@ -3,9 +3,9 @@
     "name": "SaveThatTweet",
     "slug": "SaveThatTweet",
     "scheme": "savethattweet",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/save-that-tweet-just-logo.png",
+    "icon": "./assets/save-that-tweet-icon.png",
     "splash": {
       "image": "./assets/save-that-tweet-splash.png",
       "resizeMode": "contain",

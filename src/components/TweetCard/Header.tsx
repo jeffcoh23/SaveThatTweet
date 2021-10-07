@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native";
 import { TweetResource } from "../../interfaces";
 import TweetStore from "../../stores/TweetStore";
 import * as RootNavigation from "../../navigation/RootNavigation";
+import ReportIssueButton from "./ReportIssueButton";
 
 interface Props {
   tweetResource: TweetResource;
@@ -39,10 +40,13 @@ const Header: React.FC<Props> = ({
       </Layout>
       <Layout>
         {tweetResource.payload.isThread && !hideTweetDetails ? (
-          <Button onPress={pressViewThread}>View Thread</Button>
+          <Button size="small" onPress={pressViewThread}>
+            View Thread
+          </Button>
         ) : (
           <></>
         )}
+        <ReportIssueButton tweetResource={tweetResource} />
       </Layout>
     </Layout>
   );
@@ -58,6 +62,7 @@ const styles = StyleSheet.create({
   userAccountContainer: {
     flexDirection: "row",
   },
+
   userNames: {
     flexDirection: "column",
   },

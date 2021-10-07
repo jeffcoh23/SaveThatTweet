@@ -109,13 +109,14 @@ class HomeScreenContent extends React.Component<Props> {
       case "waiting":
         return <CentralSpinner />;
       case "searching":
+      case "refreshing":
       case "ready":
         return (
           <SafeAreaLayout insets={[SaveAreaInset.TOP]} style={{ flex: 1 }}>
             <Layout style={styles.searchContainer}>
               <Input
                 status="control"
-                value={this.tweetStore.state.searchText.slice()}
+                value={this.tweetStore.searchText.slice()}
                 label="Search tweet contents"
                 placeholder="Ex: Hello Twitter"
                 accessoryRight={searchIcon}

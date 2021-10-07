@@ -5,7 +5,7 @@ const localhost = "http://localhost:3000";
 
 // cant change to slatebets.com until we have SSL available on heroku
 // const production = "https://slate-bets-api.herokuapp.com/";
-const production = "http://www.savethattweet.com/";
+const production = "https://www.savethattweet.com/";
 
 const ENV = {
   dev: {

@@ -9,8 +9,8 @@ const EmptyTweetsList: React.FC = () => (
       Uh oh.
     </Text>
     <Text style={styles.text} category="s1">
-      You dont have any saved Tweets (yet). Click the link below to learn how to
-      save Tweets.
+      There are no Tweets to display. Please check your filters, or click the
+      link below to learn how to save Tweets.
     </Text>
     <HowItWorksButton />
   </Layout>

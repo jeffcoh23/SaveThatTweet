@@ -10,6 +10,11 @@ interface Ready {
   selectedTagsIndex: IndexPath | IndexPath[];
 }
 
+interface Refreshing {
+  kind: "refreshing";
+  tweets: TweetsResource;
+}
+
 interface Searching {
   kind: "searching";
   searchText: string;
@@ -26,7 +31,7 @@ interface Waiting {
   kind: "waiting";
 }
 
-type State = Searching | Ready | Loading | Waiting;
+type State = Searching | Refreshing | Ready | Loading | Waiting;
 
 const loading = (): Loading => ({
   kind: "loading",
@@ -49,6 +54,11 @@ const ready = (
   searchText,
   tags,
   selectedTagsIndex,
+});
+
+const refreshing = (tweets: TweetsResource): Refreshing => ({
+  kind: "refreshing",
+  tweets,
 });
 
 const searching = (
@@ -89,6 +99,7 @@ class TweetStore {
     switch (this.state.kind) {
       case "loading":
       case "waiting":
+      case "refreshing":
         this.state = ready(tweets, "", [], []);
         break;
       case "searching":
@@ -100,6 +111,19 @@ class TweetStore {
         );
         break;
       case "ready":
+    }
+  };
+
+  @action
+  refreshing = () => {
+    switch (this.state.kind) {
+      case "loading":
+      case "waiting":
+        break;
+      case "ready":
+        this.state = refreshing(this.state.tweets);
+        break;
+      case "searching":
     }
   };
 
@@ -169,6 +193,7 @@ class TweetStore {
     switch (this.state.kind) {
       case "loading":
       case "waiting":
+      case "refreshing":
         return [];
       case "ready":
       case "searching":
@@ -187,6 +212,7 @@ class TweetStore {
     switch (this.state.kind) {
       case "loading":
       case "waiting":
+      case "refreshing":
         return [];
       case "ready":
       case "searching":
@@ -205,10 +231,24 @@ class TweetStore {
     }
   }
 
+  @computed
+  get searchText(): string {
+    switch (this.state.kind) {
+      case "loading":
+      case "waiting":
+      case "refreshing":
+        return "";
+      case "searching":
+      case "ready":
+        return this.state.searchText;
+    }
+  }
+
   @computed get currentSelectedTags(): string[] {
     switch (this.state.kind) {
       case "loading":
       case "waiting":
+      case "refreshing":
         return [];
       case "searching":
       case "ready":

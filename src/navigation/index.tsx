@@ -33,7 +33,14 @@ const config = {
 const prefix = Linking.createURL("/");
 
 const linking = {
-  prefixes: ["https://savethattweet.com", ...prefix],
+  prefixes: [
+    "http://www.savethattweet.com",
+    "www.savethattweet.com",
+    "http://savethattweet.com",
+    "https://www.savethattweet.com",
+    "https://savethattweet.com",
+    ...prefix,
+  ],
   config,
 };
 

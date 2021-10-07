@@ -40,7 +40,7 @@ const TweetCard: React.FC<Props> = ({
         switch (imgUrl.type) {
           case "photo":
             return (
-              <Layout style={styles.imgLayout}>
+              <Layout key={imgUrl.link} style={styles.imgLayout}>
                 <Image style={styles.mediaImg} source={{ uri: imgUrl.link }} />
               </Layout>
             );
