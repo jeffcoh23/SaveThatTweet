@@ -14,6 +14,7 @@ import {
   SaveAreaInset,
 } from "../../../../utils/components/SafeAreaLayout";
 import CentralSpinner from "../../../components/CentralSpinner";
+import { SaveThatTweetLogo } from "../../../components/InternalIcons";
 import { TweetsResource } from "../../../interfaces";
 import serverApi from "../../../serverApi";
 import { currentUserStore } from "../../../stores/CurrentUserStore";
@@ -113,6 +114,7 @@ class HomeScreenContent extends React.Component<Props> {
       case "ready":
         return (
           <SafeAreaLayout insets={[SaveAreaInset.TOP]} style={{ flex: 1 }}>
+            <SaveThatTweetLogo />
             <Layout style={styles.searchContainer}>
               <Input
                 status="control"

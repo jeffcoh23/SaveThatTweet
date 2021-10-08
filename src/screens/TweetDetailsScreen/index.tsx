@@ -14,8 +14,9 @@ import { currentUserStore } from "../../stores/CurrentUserStore";
 import TweetStore from "../../stores/TweetStore";
 import TweetsList from "../HomeScreen/TweetsList";
 import getEnvVars from "../../../environment";
-import { BackIcon } from "../../components/InternalIcons";
+import { BackIcon, SaveThatTweetLogo } from "../../components/InternalIcons";
 import * as RootNavigation from "../../navigation/RootNavigation";
+import { StyleSheet } from "react-native";
 
 // import { NavigationScreenProp, NavigationState } from "react-navigation";
 const { apiUrl } = getEnvVars();
@@ -61,12 +62,16 @@ class TweetDetailsScreen extends React.Component<Props> {
       case "ready":
         return (
           <SafeAreaLayout insets={[SaveAreaInset.TOP]} style={{ flex: 1 }}>
-            <Button
-              style={{ marginRight: 40, alignSelf: "flex-start" }}
-              onPress={this.onPressBack}
-              appearance="ghost"
-              accessoryRight={BackIcon}
-            />
+            <Layout style={styles.top}>
+              <Button
+                style={styles.button}
+                onPress={this.onPressBack}
+                appearance="ghost"
+                accessoryRight={BackIcon}
+              />
+              <SaveThatTweetLogo />
+            </Layout>
+
             <Layout style={{ flex: 1 }}>
               <TweetsList
                 hideTweetDetails={true}
@@ -79,5 +84,22 @@ class TweetDetailsScreen extends React.Component<Props> {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  button: {
+    position: "absolute",
+    left: 0,
+    alignSelf: "flex-start",
+  },
+  top: {
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+  },
+});
 
 export default observer(TweetDetailsScreen);

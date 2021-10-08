@@ -18,6 +18,6 @@ export const SaveThatTweetLogo = () => (
       width: 50,
       backgroundColor: "transparent",
     }}
-    source={require("../../../assets/save-that-tweet-splash.png")}
+    source={require("../../../assets/save-that-tweet-splash-removebg-preview.png")}
   />
 );
