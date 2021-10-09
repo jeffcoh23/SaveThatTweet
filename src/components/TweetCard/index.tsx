@@ -11,12 +11,14 @@ interface Props {
   tweetResource: TweetResource;
   tweetStore: TweetStore;
   hideTweetDetails: boolean;
+  refreshList: () => void;
 }
 
 const TweetCard: React.FC<Props> = ({
   tweetStore,
   tweetResource,
   hideTweetDetails,
+  refreshList,
 }) => {
   return (
     <Card
@@ -29,6 +31,7 @@ const TweetCard: React.FC<Props> = ({
       }
       header={(props) => (
         <Header
+          refreshList={refreshList}
           hideTweetDetails={hideTweetDetails}
           tweetStore={tweetStore}
           tweetResource={tweetResource}

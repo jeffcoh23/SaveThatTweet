@@ -7,9 +7,10 @@ import serverApi from "../../serverApi";
 
 interface Props {
   tweetResource: TweetResource;
+  refreshList: () => void;
 }
 
-const ReportIssueButton: React.FC<Props> = ({ tweetResource }) => {
+const ReportIssueButton: React.FC<Props> = ({ tweetResource, refreshList }) => {
   const reportIssue = () => {
     const link = tweetResource.links.find((l) => l.rel === "report-issue");
     if (link) {
@@ -27,17 +28,29 @@ const ReportIssueButton: React.FC<Props> = ({ tweetResource }) => {
                 id: tweetResource.payload.id,
                 type: "tweet",
               })
-              .then(() => alert("This Tweet has been reported.")),
+              .then(() => alert("This Tweet has been reported."))
+              .then(refreshList)
+              .catch(() => {
+                alert("Hmm something went wrong, please try again later.");
+              }),
         },
         {
-          text: "Report User",
+          text: "Block User",
           onPress: () =>
             serverApi
               .post(link.href, {
                 id: tweetResource.payload.id,
                 type: "user",
               })
-              .then(() => alert("This user has been reported.")),
+              .then(() =>
+                alert(
+                  "This user has been blocked, you will no longer see their Tweets."
+                )
+              )
+              .then(refreshList)
+              .catch(() => {
+                alert("Hmm something went wrong, please try again later.");
+              }),
         },
       ]);
     } else {

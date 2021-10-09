@@ -11,10 +11,12 @@ interface Props {
   tweetResource: TweetResource;
   tweetStore: TweetStore;
   hideTweetDetails: boolean;
+  refreshList: () => void;
 }
 
 const Header: React.FC<Props> = ({
   tweetStore,
+  refreshList,
   tweetResource,
   hideTweetDetails,
 }) => {
@@ -46,7 +48,14 @@ const Header: React.FC<Props> = ({
         ) : (
           <></>
         )}
-        <ReportIssueButton tweetResource={tweetResource} />
+        {hideTweetDetails ? (
+          <></>
+        ) : (
+          <ReportIssueButton
+            refreshList={refreshList}
+            tweetResource={tweetResource}
+          />
+        )}
       </Layout>
     </Layout>
   );

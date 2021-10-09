@@ -12,12 +12,14 @@ interface Props {
   tweetsResource: TweetsResource;
   tweetStore: TweetStore;
   hideTweetDetails: boolean;
+  refreshList: () => void;
 }
 
 const TweetsList: React.FC<Props> = ({
   tweetStore,
   tweetsResource,
   hideTweetDetails,
+  refreshList,
 }) => {
   const renderItem = ({
     item,
@@ -27,6 +29,7 @@ const TweetsList: React.FC<Props> = ({
     index: number;
   }) => (
     <TweetCard
+      refreshList={refreshList}
       hideTweetDetails={hideTweetDetails}
       key={item.payload.id}
       tweetStore={tweetStore}

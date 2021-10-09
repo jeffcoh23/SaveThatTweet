@@ -43,9 +43,17 @@ class TweetDetailsScreen extends React.Component<Props> {
         )
         .then((res: TweetsResource) => {
           this.tweetStore.ready(res);
-        });
+        })
+        .catch(this.cantFindTweetAlertAndGoBack);
+    } else {
+      this.cantFindTweetAlertAndGoBack();
     }
   }
+
+  cantFindTweetAlertAndGoBack = () => {
+    alert("Hmm something went wrong, please try again later.");
+    this.onPressBack();
+  };
 
   onPressBack = () => {
     RootNavigation.navigate("Home", {
@@ -74,6 +82,7 @@ class TweetDetailsScreen extends React.Component<Props> {
 
             <Layout style={{ flex: 1 }}>
               <TweetsList
+                refreshList={this.onPressBack}
                 hideTweetDetails={true}
                 tweetStore={this.tweetStore}
                 tweetsResource={this.tweetStore.state.tweets}

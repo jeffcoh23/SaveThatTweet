@@ -37,7 +37,7 @@ const tagsIcon = () => (
 class HomeScreenContent extends React.Component<Props> {
   private tweetStore: TweetStore = new TweetStore();
   private timeout: null | ReturnType<typeof setTimeout> = null;
-
+  private subscribe: any;
   constructor(props: Props) {
     super(props);
     // this.props.navigation.navigate("Home", {
@@ -49,15 +49,28 @@ class HomeScreenContent extends React.Component<Props> {
 
   fetchTweets = (link: string) => {
     if (link) {
+      this.tweetStore.searching()
       serverApi.get(link).then((res: TweetsResource) => {
         this.tweetStore.ready(res);
       });
     }
   };
 
-  componentDidMount() {
+  refreshList = () => {
     if (currentUserStore.savedTweetsLink)
       this.fetchTweets(currentUserStore.savedTweetsLink);
+  };
+
+  componentDidMount() {
+    this.subscribe = this.props.navigation.addListener("focus", () => {
+      this.refreshList();
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.subscribe) {
+      this.subscribe.remove();
+    }
   }
 
   handleTextSearch = (searchText: string) => {
@@ -69,9 +82,6 @@ class HomeScreenContent extends React.Component<Props> {
         this.fetchTweets(`${link}?search_text=${searchText}`);
       }
     }, 1000);
-
-    // FETCH API
-    //this.tweetStore.ready(data);
   };
 
   handleTagSearch = (index: IndexPath | IndexPath[], tags: string[]) => {
@@ -84,16 +94,7 @@ class HomeScreenContent extends React.Component<Props> {
         )}`
       );
     }
-    // FETCH API
-    // this.tweetStore.ready(data);
   };
-
-  // paths = reaction(
-  //   () => this.tweetStore.tags,
-  //   (isHungry) => {
-  //     console.log(`yooo ${this.tweetStore.selectedTagsIndexPath}`);
-  //   }
-  // );
 
   selectedTagsDisplayValue = () => {
     const indexPath = Array.isArray(this.tweetStore.selectedTagsIndexPath)
@@ -146,6 +147,7 @@ class HomeScreenContent extends React.Component<Props> {
               <CentralSpinner />
             ) : (
               <TweetsList
+                refreshList={this.refreshList}
                 hideTweetDetails={false}
                 tweetStore={this.tweetStore}
                 tweetsResource={this.tweetStore.state.tweets}
