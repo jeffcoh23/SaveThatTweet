@@ -41,7 +41,7 @@ const linking = {
     "http://savethattweet.com",
     "https://www.savethattweet.com",
     "https://savethattweet.com",
-    ...prefix,
+    prefix,
   ],
   config,
 };
