@@ -26,7 +26,9 @@ export type TabStackParamList = {
 
 const config = {
   screens: {
-    TweetDetails: "savedTweets/:savedTweetId",
+    Home: {
+      screens: { TweetDetails: "savedTweets/:savedTweetId" },
+    },
   },
 };
 
