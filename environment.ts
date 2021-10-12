@@ -1,22 +1,28 @@
 import Constants from "expo-constants";
 
-const localhost = "http://localhost:3000";
 // const localhost = "http://localhost:3000";
+const localhost = "https://522a-68-161-202-223.ngrok.io";
 
-// cant change to slatebets.com until we have SSL available on heroku
-// const production = "https://slate-bets-api.herokuapp.com/";
 const production = "https://www.savethattweet.com/";
 
+const admobBannerProd = "ca-app-pub-2307234117375592/2397205341";
+const admobBannerLocal = "ca-app-pub-3940256099942544/2934735716";
 const ENV = {
   dev: {
     apiUrl: localhost,
+    admobBannerId: admobBannerLocal,
+    testId: "EMULATOR",
   },
 
   staging: {
     apiUrl: production,
+    testId: undefined,
+    admobBannerId: admobBannerProd,
   },
   prod: {
     apiUrl: production,
+    testId: undefined,
+    admobBannerId: admobBannerProd,
   },
 };
 

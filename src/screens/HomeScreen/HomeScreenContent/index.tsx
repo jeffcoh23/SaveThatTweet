@@ -14,6 +14,7 @@ import {
   SaveAreaInset,
 } from "../../../../utils/components/SafeAreaLayout";
 import CentralSpinner from "../../../components/CentralSpinner";
+import GoogleAdMobBanner from "../../../components/GoogleAdMobBanner";
 import { SaveThatTweetLogo } from "../../../components/InternalIcons";
 import { TweetsResource } from "../../../interfaces";
 import serverApi from "../../../serverApi";
@@ -49,7 +50,7 @@ class HomeScreenContent extends React.Component<Props> {
 
   fetchTweets = (link: string) => {
     if (link) {
-      this.tweetStore.searching()
+      this.tweetStore.searching();
       serverApi.get(link).then((res: TweetsResource) => {
         this.tweetStore.ready(res);
       });
@@ -68,7 +69,7 @@ class HomeScreenContent extends React.Component<Props> {
   }
 
   componentWillUnmount() {
-    if (this.subscribe) {
+    if (!!this.subscribe.remove) {
       this.subscribe.remove();
     }
   }
@@ -153,6 +154,7 @@ class HomeScreenContent extends React.Component<Props> {
                 tweetsResource={this.tweetStore.state.tweets}
               />
             )}
+            <GoogleAdMobBanner />
           </SafeAreaLayout>
         );
     }

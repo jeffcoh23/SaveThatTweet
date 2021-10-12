@@ -17,6 +17,7 @@ import getEnvVars from "../../../environment";
 import { BackIcon, SaveThatTweetLogo } from "../../components/InternalIcons";
 import * as RootNavigation from "../../navigation/RootNavigation";
 import { StyleSheet } from "react-native";
+import GoogleAdMobBanner from "../../components/GoogleAdMobBanner";
 
 // import { NavigationScreenProp, NavigationState } from "react-navigation";
 const { apiUrl } = getEnvVars();
@@ -88,6 +89,7 @@ class TweetDetailsScreen extends React.Component<Props> {
                 tweetsResource={this.tweetStore.state.tweets}
               />
             </Layout>
+            <GoogleAdMobBanner />
           </SafeAreaLayout>
         );
     }

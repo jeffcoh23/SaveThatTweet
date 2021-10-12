@@ -16,7 +16,12 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2307234117375592~5013444609"
+      },
       "associatedDomains": [
+        "applinks:wwww.522a-68-161-202-223.ngrok.io",
+        "applinks:522a-68-161-202-223.ngrok.io",
         "applinks:savethattweet.com",
         "applinks:www.savethattweet.com"
       ],
