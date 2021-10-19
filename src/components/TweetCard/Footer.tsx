@@ -242,9 +242,9 @@ const Footer: React.FC<Props> = ({ tweetStore, tweetResource }) => {
         <TouchableOpacity onPress={deleteTweetButton}>
           <Icon height={25} width={25} fill="#8F9BB3" name="trash-outline" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={onShare}>
+        {/* <TouchableOpacity onPress={onShare}>
           <Icon height={25} width={25} fill="#8F9BB3" name="link-2-outline" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </Layout>
     </>
   );

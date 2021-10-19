@@ -154,7 +154,7 @@ class HomeScreenContent extends React.Component<Props> {
                 tweetsResource={this.tweetStore.state.tweets}
               />
             )}
-            <GoogleAdMobBanner />
+            {/* <GoogleAdMobBanner /> */}
           </SafeAreaLayout>
         );
     }

@@ -89,7 +89,7 @@ class TweetDetailsScreen extends React.Component<Props> {
                 tweetsResource={this.tweetStore.state.tweets}
               />
             </Layout>
-            <GoogleAdMobBanner />
+            {/* <GoogleAdMobBanner /> */}
           </SafeAreaLayout>
         );
     }
