@@ -68,6 +68,7 @@ class TweetDetailsScreen extends React.Component<Props> {
       case "waiting":
         return <CentralSpinner />;
       case "searching":
+      case 'refreshing':
       case "ready":
         return (
           <SafeAreaLayout insets={[SaveAreaInset.TOP]} style={{ flex: 1 }}>
