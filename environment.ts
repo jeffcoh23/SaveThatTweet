@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 
-// const localhost = "http://localhost:3000";
-const localhost = "https://522a-68-161-202-223.ngrok.io";
+const localhost = "http://localhost:3000";
+// const localhost = "https://522a-68-161-202-223.ngrok.io";
 
 const production = "https://www.savethattweet.com/";
 

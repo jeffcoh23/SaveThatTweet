@@ -1,9 +1,11 @@
-import { Card, Layout, Text } from "@ui-kitten/components";
+import { Card, Text } from "@ui-kitten/components";
+import { Video } from "expo-av";
 import { observer } from "mobx-react-lite";
 import * as React from "react";
-import { Image, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { TweetResource } from "../../interfaces";
 import TweetStore from "../../stores/TweetStore";
+import ImageModal from "../ImageModal";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -20,6 +22,7 @@ const TweetCard: React.FC<Props> = ({
   hideTweetDetails,
   refreshList,
 }) => {
+  const video = React.useRef(null);
   return (
     <Card
       footer={() =>
@@ -39,21 +42,23 @@ const TweetCard: React.FC<Props> = ({
       )}
     >
       <Text>{tweetResource.payload.fullText}</Text>
-      {tweetResource.payload.media.map((imgUrl) => {
-        switch (imgUrl.type) {
+      {tweetResource.payload.media.map((media) => {
+        switch (media.type) {
           case "photo":
-            return (
-              <Layout key={imgUrl.link} style={styles.imgLayout}>
-                <Image style={styles.mediaImg} source={{ uri: imgUrl.link }} />
-              </Layout>
-            );
+            return <ImageModal imageProps={media} />;
           case "video":
-            return <></>;
-          // (
-          //   <Layout style={styles.imgLayout}>
-          //     <Video style={styles.mediaImg} source={{ uri: imgUrl.link }} />
-          //   </Layout>
-          // );
+            return (
+              <Video
+                key={media.link}
+                ref={video}
+                style={styles.video}
+                source={{
+                  uri: media.link,
+                }}
+                useNativeControls
+                resizeMode="contain"
+              />
+            );
         }
       })}
     </Card>

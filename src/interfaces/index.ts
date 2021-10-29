@@ -9,7 +9,21 @@ export interface TweetPayload {
   profileImageUrl: string;
   savedTags: string[];
   isThread: boolean;
-  media: { type: "video" | "photo"; link: string }[];
+  media: TwitterImageAndVideoType[];
+}
+
+export type TwitterImageAndVideoType = TwitterVideoProps | TwitterImageProps;
+
+export interface TwitterImageProps {
+  type: "photo";
+  link: string;
+  height: number;
+  width: number;
+}
+
+export interface TwitterVideoProps {
+  type: "video";
+  link: string;
 }
 
 export interface TweetResource {
