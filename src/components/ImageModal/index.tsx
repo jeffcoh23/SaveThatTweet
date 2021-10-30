@@ -3,13 +3,14 @@ import { observer } from "mobx-react-lite";
 import * as React from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import { screenHeight, screenWidth } from "../../../utils/constants";
-import { TwitterImageProps } from "../../interfaces";
+import { TweetResource, TwitterImageProps } from "../../interfaces";
 
 interface Props {
   imageProps: TwitterImageProps;
+  tweetResource: TweetResource
 }
 
-const ImageModal: React.FC<Props> = ({ imageProps }) => {
+const ImageModal: React.FC<Props> = ({ tweetResource, imageProps }) => {
   const [visible, setVisible] = React.useState(false);
 
   const showImage = () => {
@@ -21,9 +22,9 @@ const ImageModal: React.FC<Props> = ({ imageProps }) => {
   };
 
   return (
-    <>
+    <Layout key={`${tweetResource.payload.id} ${imageProps.link}`}>
       <TouchableOpacity onPress={showImage}>
-        <Layout key={imageProps.link} style={styles.layout}>
+        <Layout style={styles.layout}>
           <Image style={styles.image} source={{ uri: imageProps.link }} />
         </Layout>
       </TouchableOpacity>
@@ -51,8 +52,7 @@ const ImageModal: React.FC<Props> = ({ imageProps }) => {
           />
         </Layout>
       </Modal>
-      {/* </Layout> */}
-    </>
+      </Layout>
   );
 };
 

@@ -45,7 +45,7 @@ const TweetCard: React.FC<Props> = ({
       {tweetResource.payload.media.map((media) => {
         switch (media.type) {
           case "photo":
-            return <ImageModal imageProps={media} />;
+            return <ImageModal tweetResource={tweetResource} imageProps={media} />;
           case "video":
             return (
               <Video
@@ -68,6 +68,11 @@ const TweetCard: React.FC<Props> = ({
 const styles = StyleSheet.create({
   mediaImg: { margin: 10, height: 150, width: 150 },
   imgLayout: { flexWrap: "wrap", flexDirection: "row" },
+  video: {
+    alignSelf: "flex-start",
+    width: 320,
+    height: 200,
+  },
 });
 
 export default observer(TweetCard);
